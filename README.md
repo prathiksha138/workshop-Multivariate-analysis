@@ -1,109 +1,62 @@
 # workshop-Multivariate-analysisAIM:
-### Aim: 
-To Perform Bivariate/Multivariate Analysis
-### Algorithm:
-
-1. Read the given data 
-2.Get information from the data 
-3.Perform the Bivariate/Multivariate Analysis
-4. Save the clean data to File
-
-### program:
-```
-NAME:Prathiksha
-REG.NO:212220220028
-```
-```
+## AIM:
+     To perform Bivariate/Multivariate Analysis for the given data set.
+## CODE:
+/*
+~~~
 import pandas as pd
 import numpy as np
-import seaborn as sns
 import matplotlib.pyplot as plt
-df = pd.read_csv("FlightInformation.csv")
-df
+import seaborn as sns
+df=pd.read_excel("/content/FlightInformation.xlsx")
 df.head()
+df.isnull().sum()
 df.info()
-df.isnull().sum()
-df['Route'] = df['Route'].fillna(df['Route'].mode()[0])
-df['Total_Stops'] = df['Total_Stops'].fillna(df['Total_Stops'].mode()[0])
-df.isnull().sum()
-df.shape
-plt.figure(figsize=(8,5))
-plt.xticks(rotation = 80)
-sns.barplot(df["Airline"],df["Price"],hue=df["Total_Stops"])
-states=df.loc[:,["Source","Price"]]
-states=states.groupby(by=["Source"]).sum().sort_values(by="Price")
-plt.figure(figsize=(8,7))
-sns.barplot(x=states.index,y="Price",data=states)
+df['Route']=df['Route'].fillna(df['Route'].mode()[0])
+df['Total_Stops']=df['Total_Stops'].fillna(df['Total_Stops'].mode()[0])
+sns.scatterplot(df['Duration'],df['Destination'])
+sns.barplot(x=df["Price"],y=df["Source"],data=df)
+airline=df.loc[:,["Airline","Price"]]
+airline=airline.groupby(by=["Airline"]).sum().sort_values(by="Price")
+plt.figure(figsize=(17,7))
+sns.barplot(x=airline.index,y="Price",data=airline)
 plt.xticks(rotation = 90)
-plt.xlabel=("SOURCE")
+plt.xlabel=("AIRLINE")
 plt.ylabel=("PRICE")
 plt.show()
-plt.figure(figsize=(5,7))
-sns.scatterplot(df['Source'], df['Price'], hue=df['Destination'])
-plt.xticks(rotation = 90)
-df_count = df.groupby(by=["Source"]).count()
-labels=[]
-for i in df_count.index:
-    labels.append(i)
-plt.figure(figsize=(8,8))
-colors = sns.color_palette("Set2")
-plt.pie(df_count["Price"], colors = colors, labels=labels, autopct = "%0.0f%%",shadow = True) 
-plt.title("Source")
-plt.show()
-df['Airline'].value_counts()
-df['Duration'].value_counts()
-df_segment = df.groupby(by=["Total_Stops"]).count()
-labels = []
-for i in df_segment.index:
-    labels.append(i)
-plt.figure(figsize=(6,6))
-colors = sns.color_palette('pastel')
-pie = plt.pie(df_segment["Price"], colors = colors, autopct = "%0.0f%%",shadow = True)
-plt.title("Total Stops")
-plt.legend(pie[0], labels, loc="upper right")
-plt.show()
-df_region = df.groupby(by=["Destination"]).count()
-labels = []
-for i in df_region.index:
-    labels.append(i)
-    
-plt.figure(figsize=(8,8))
-colors = sns.color_palette('pastel')
-pie = plt.pie(df_region["Price"], colors = colors, autopct = "%0.0f%%",shadow = True)
-plt.title("Destination")
-plt.legend(pie[0], labels, loc="upper right")
-plt.show()
-```
-### output:
-![output](./ds1.png)
+sns.boxplot(df['Price'],df['Duration'])
+sns.displot(df, x="Source", hue="Airline")
+df.corr()
+sns.heatmap(df.corr(),annot=True)
+~~~
+*/
 
-![output](./ds2.png)
+## OUTPUT:
 
-![output](./ds3.png)
+![image](https://user-images.githubusercontent.com/103166779/193091025-4e056669-34f9-4750-8144-c3362394027d.png)
 
-![output](./ds4.png)
+![image](https://user-images.githubusercontent.com/103166779/193091474-b44d5430-acd5-4c32-bb17-7db15b60e3cc.png)
 
-![output](./ds5.png)
+![image](https://user-images.githubusercontent.com/103166779/193091989-ba5afdc5-ad4a-4c29-b0db-f4b7987e4fc3.png)
 
-![output](./ds6.png)
+![image](https://user-images.githubusercontent.com/103166779/193092243-12cefe29-6a0f-4dee-ad2e-dd56ccbf2c30.png)
 
-![output](./ds7.png)
+![image](https://user-images.githubusercontent.com/103166779/193092424-c5861470-b012-489e-8a29-a77d6336039b.png)
 
-![output](./ds8.png)
+![image](https://user-images.githubusercontent.com/103166779/193092588-30822169-3ba4-4546-b5e5-fb78f047f433.png)
 
-![output](./ds9.png)
+![image](https://user-images.githubusercontent.com/103166779/193092827-5f2f93c2-0e54-4fba-b412-2845f8f900a1.png)
 
-![output](./ds10.png)
+![image](https://user-images.githubusercontent.com/103166779/193092980-4a405690-cd56-4cd4-9532-2deee6d4f8d0.png)
 
-![output](./ds11.png)
+![image](https://user-images.githubusercontent.com/103166779/193093127-3b8e89b2-85a2-4bef-a031-a9a0528ff8b5.png)
 
-![output](./ds12.png)
+![image](https://user-images.githubusercontent.com/103166779/193093259-2c6409f4-7314-4e02-bd60-a1ef0dcac102.png)
 
-![output](./ds13.png)
+![image](https://user-images.githubusercontent.com/103166779/193093388-b9defbed-33c3-4f34-803a-883df82f0e2b.png)
 
-![output](./ds14.png)
+![image](https://user-images.githubusercontent.com/103166779/193093493-a6d74108-6d1d-40af-8b5b-cc3ef670633a.png)
 
-![output](./ds15.png)
 
-## Result : 
-Thus we applied Bivariate/Multivariate Analysis Successfully
+## RESULT:
+    Thus the Bivariate/Multivariate Analysis for the given data set is executed successfully.
